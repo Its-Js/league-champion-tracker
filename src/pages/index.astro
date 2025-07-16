@@ -1,0 +1,163 @@
+---
+const championNames = [
+  "Aatrox", "Ahri", "Akali", "Akshan", "Alistar", "Ambessa", "Amumu", "Anivia", "Annie", "Aphelios", "Ashe", "Aurelion Sol", "Aurora", "Azir", "Bard", "Bel'Veth",
+  "Blitzcrank", "Brand", "Braum", "Briar", "Caitlyn", "Camille", "Cassiopeia", "Cho'Gath", "Corki", "Darius", "Diana", "Draven", "Dr. Mundo", "Ekko", "Elise",
+  "Evelynn", "Ezreal", "Fiddlesticks", "Fiora", "Fizz", "Galio", "Gangplank", "Garen", "Gnar", "Gragas", "Graves", "Gwen", "Hecarim", "Heimerdinger", "Hwei",
+  "Illaoi", "Irelia", "Ivern", "Janna", "Jarvan IV", "Jax", "Jayce", "Jhin", "Jinx", "Kai'Sa", "Kalista", "Karma", "Karthus", "Kassadin", "Katarina", "Kayle",
+  "Kayn", "Kennen", "Kha'Zix", "Kindred", "Kled", "Kog'Maw", "K'Sante", "LeBlanc", "Lee Sin", "Leona", "Lillia", "Lissandra", "Lucian", "Lulu", "Lux", "Malphite",
+  "Malzahar", "Maokai", "Master Yi", "Mel", "Milio", "Miss Fortune", "Mordekaiser", "Morgana", "Naafiri", "Nami", "Nasus", "Nautilus", "Neeko", "Nidalee",
+  "Nilah", "Nocturne", "Nunu & Willump", "Olaf", "Orianna", "Ornn", "Pantheon", "Poppy", "Pyke", "Qiyana", "Quinn", "Rakan", "Rammus", "Rek'Sai", "Rell", "Renata Glasc",
+  "Renekton", "Rengar", "Riven", "Rumble", "Ryze", "Samira", "Sejuani", "Senna", "Seraphine", "Sett", "Shaco", "Shen", "Shyvana", "Singed", "Sion", "Sivir",
+  "Skarner", "Smolder", "Sona", "Soraka", "Swain", "Sylas", "Syndra", "Tahm Kench", "Taliyah", "Talon", "Taric", "Teemo", "Thresh", "Tristana", "Trundle",
+  "Tryndamere", "Twisted Fate", "Twitch", "Udyr", "Urgot", "Varus", "Vayne", "Veigar", "Vel'Koz", "Vex", "Vi", "Viego", "Viktor", "Vladimir", "Volibear",
+  "Warwick", "Wukong", "Xayah", "Xerath", "Xin Zhao", "Yasuo", "Yone", "Yorick", "Yunara", "Yuumi", "Zac", "Zed", "Zeri", "Ziggs", "Zilean", "Zoe", "Zyra"
+];
+
+const formatChampionName = (name: string) => {
+  // Handle special cases for champion names that don't match the file name convention
+  if (name === "Wukong") return "MonkeyKing";
+  if (name === "Nunu & Willump") return "Nunu";
+  if (name === "Cho'Gath") return "Chogath";
+  if (name === "LeBlanc") return "Leblanc";
+  if (name === "Renata Glasc") return "Renata";
+
+  let formatted = name.replace(/[^a-zA-Z0-9]/g, '');
+
+  // Handle inconsistent casing from the file names
+  if (formatted === "BelVeth") return "Belveth";
+  if (formatted === "KaiSa") return "Kaisa";
+  if (formatted === "KhaZix") return "Khazix";
+  if (formatted === "VelKoz") return "Velkoz";
+  if (formatted === "DrMundo") return "DrMundo";
+
+
+  return formatted;
+};
+---
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>League Champion Tracker</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #121212;
+      color: #fff;
+    }
+    .champion-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 1rem;
+      padding: 1rem;
+    }
+    .champion-card {
+      cursor: pointer;
+      border: 2px solid #333;
+      border-radius: 5px;
+      overflow: hidden;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+    .champion-card:hover {
+      transform: scale(1.05);
+    }
+    .champion-card.active {
+      background-color: #28a745;
+      border-color: #28a745;
+    }
+    .champion-card img {
+      width: 100%;
+      height: auto;
+    }
+    .champion-card p {
+      margin: 0.5rem 0;
+    }
+    h1 {
+      text-align: center;
+    }
+    .url-container {
+      display: flex;
+      justify-content: center;
+      padding: 0 1rem;
+    }
+    #share-url {
+      width: 100%;
+      max-width: 800px; /* Adjust as needed */
+      padding: 0.5rem;
+      background-color: #333;
+      color: #fff;
+      border: 1px solid #555;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <h1>League Champion Tracker</h1>
+  <div class="url-container">
+    <input type="text" id="share-url" readonly>
+  </div>
+  <div class="champion-grid">
+    {championNames.map(name => (
+      <div class="champion-card" data-champion={formatChampionName(name)}>
+        <img src={`/champions/${formatChampionName(name)}.png`} alt={name}>
+        <p>{name}</p>
+      </div>
+    ))}
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const championCards = document.querySelectorAll('.champion-card');
+      const shareUrlInput = document.getElementById('share-url') as HTMLInputElement;
+
+      const updateUrl = () => {
+        let bitmask = 0n; // Use BigInt for a large number of bits
+        championCards.forEach((card, index) => {
+          if (card.classList.contains('active')) {
+            // Set the bit corresponding to the champion's index
+            bitmask |= (1n << BigInt(index));
+          }
+        });
+
+        const url = new URL(window.location.href);
+        // Store the state as a compact hexadecimal string
+        url.searchParams.set('state', bitmask.toString(16));
+        url.searchParams.delete('champions'); // Remove old parameter
+        shareUrlInput.value = url.toString();
+        window.history.replaceState({}, '', url.toString());
+      };
+
+      const loadFromUrl = () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const stateHex = urlParams.get('state');
+        if (stateHex) {
+          try {
+            const bitmask = BigInt('0x' + stateHex);
+            championCards.forEach((card, index) => {
+              // Check if the bit for this champion is set
+              if ((bitmask & (1n << BigInt(index))) !== 0n) {
+                card.classList.add('active');
+              }
+            });
+          } catch (e) {
+            console.error("Invalid state in URL", e);
+          }
+        }
+        updateUrl(); // Call to generate the initial URL
+      };
+
+      championCards.forEach(card => {
+        card.addEventListener('click', () => {
+          card.classList.toggle('active');
+          updateUrl();
+        });
+      });
+
+      loadFromUrl();
+    });
+  </script>
+</body>
+</html>
