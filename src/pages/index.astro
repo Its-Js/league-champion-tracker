@@ -1,16 +1,176 @@
 ---
 const championNames = [
-  "Aatrox", "Ahri", "Akali", "Akshan", "Alistar", "Ambessa", "Amumu", "Anivia", "Annie", "Aphelios", "Ashe", "Aurelion Sol", "Aurora", "Azir", "Bard", "Bel'Veth",
-  "Blitzcrank", "Brand", "Braum", "Briar", "Caitlyn", "Camille", "Cassiopeia", "Cho'Gath", "Corki", "Darius", "Diana", "Draven", "Dr. Mundo", "Ekko", "Elise",
-  "Evelynn", "Ezreal", "Fiddlesticks", "Fiora", "Fizz", "Galio", "Gangplank", "Garen", "Gnar", "Gragas", "Graves", "Gwen", "Hecarim", "Heimerdinger", "Hwei",
-  "Illaoi", "Irelia", "Ivern", "Janna", "Jarvan IV", "Jax", "Jayce", "Jhin", "Jinx", "Kai'Sa", "Kalista", "Karma", "Karthus", "Kassadin", "Katarina", "Kayle",
-  "Kayn", "Kennen", "Kha'Zix", "Kindred", "Kled", "Kog'Maw", "K'Sante", "LeBlanc", "Lee Sin", "Leona", "Lillia", "Lissandra", "Lucian", "Lulu", "Lux", "Malphite",
-  "Malzahar", "Maokai", "Master Yi", "Mel", "Milio", "Miss Fortune", "Mordekaiser", "Morgana", "Naafiri", "Nami", "Nasus", "Nautilus", "Neeko", "Nidalee",
-  "Nilah", "Nocturne", "Nunu & Willump", "Olaf", "Orianna", "Ornn", "Pantheon", "Poppy", "Pyke", "Qiyana", "Quinn", "Rakan", "Rammus", "Rek'Sai", "Rell", "Renata Glasc",
-  "Renekton", "Rengar", "Riven", "Rumble", "Ryze", "Samira", "Sejuani", "Senna", "Seraphine", "Sett", "Shaco", "Shen", "Shyvana", "Singed", "Sion", "Sivir",
-  "Skarner", "Smolder", "Sona", "Soraka", "Swain", "Sylas", "Syndra", "Tahm Kench", "Taliyah", "Talon", "Taric", "Teemo", "Thresh", "Tristana", "Trundle",
-  "Tryndamere", "Twisted Fate", "Twitch", "Udyr", "Urgot", "Varus", "Vayne", "Veigar", "Vel'Koz", "Vex", "Vi", "Viego", "Viktor", "Vladimir", "Volibear",
-  "Warwick", "Wukong", "Xayah", "Xerath", "Xin Zhao", "Yasuo", "Yone", "Yorick", "Yunara", "Yuumi", "Zac", "Zed", "Zeri", "Ziggs", "Zilean", "Zoe", "Zyra"
+  "Aatrox",
+  "Ahri",
+  "Akali",
+  "Akshan",
+  "Alistar",
+  "Ambessa",
+  "Amumu",
+  "Anivia",
+  "Annie",
+  "Aphelios",
+  "Ashe",
+  "Aurelion Sol",
+  "Aurora",
+  "Azir",
+  "Bard",
+  "Bel'Veth",
+  "Blitzcrank",
+  "Brand",
+  "Braum",
+  "Briar",
+  "Caitlyn",
+  "Camille",
+  "Cassiopeia",
+  "Cho'Gath",
+  "Corki",
+  "Darius",
+  "Diana",
+  "Draven",
+  "Dr. Mundo",
+  "Ekko",
+  "Elise",
+  "Evelynn",
+  "Ezreal",
+  "Fiddlesticks",
+  "Fiora",
+  "Fizz",
+  "Galio",
+  "Gangplank",
+  "Garen",
+  "Gnar",
+  "Gragas",
+  "Graves",
+  "Gwen",
+  "Hecarim",
+  "Heimerdinger",
+  "Hwei",
+  "Illaoi",
+  "Irelia",
+  "Ivern",
+  "Janna",
+  "Jarvan IV",
+  "Jax",
+  "Jayce",
+  "Jhin",
+  "Jinx",
+  "Kai'Sa",
+  "Kalista",
+  "Karma",
+  "Karthus",
+  "Kassadin",
+  "Katarina",
+  "Kayle",
+  "Kayn",
+  "Kennen",
+  "Kha'Zix",
+  "Kindred",
+  "Kled",
+  "Kog'Maw",
+  "K'Sante",
+  "LeBlanc",
+  "Lee Sin",
+  "Leona",
+  "Lillia",
+  "Lissandra",
+  "Lucian",
+  "Lulu",
+  "Lux",
+  "Malphite",
+  "Malzahar",
+  "Maokai",
+  "Master Yi",
+  "Mel",
+  "Milio",
+  "Miss Fortune",
+  "Mordekaiser",
+  "Morgana",
+  "Naafiri",
+  "Nami",
+  "Nasus",
+  "Nautilus",
+  "Neeko",
+  "Nidalee",
+  "Nilah",
+  "Nocturne",
+  "Nunu & Willump",
+  "Olaf",
+  "Orianna",
+  "Ornn",
+  "Pantheon",
+  "Poppy",
+  "Pyke",
+  "Qiyana",
+  "Quinn",
+  "Rakan",
+  "Rammus",
+  "Rek'Sai",
+  "Rell",
+  "Renata Glasc",
+  "Renekton",
+  "Rengar",
+  "Riven",
+  "Rumble",
+  "Ryze",
+  "Samira",
+  "Sejuani",
+  "Senna",
+  "Seraphine",
+  "Sett",
+  "Shaco",
+  "Shen",
+  "Shyvana",
+  "Singed",
+  "Sion",
+  "Sivir",
+  "Skarner",
+  "Smolder",
+  "Sona",
+  "Soraka",
+  "Swain",
+  "Sylas",
+  "Syndra",
+  "Tahm Kench",
+  "Taliyah",
+  "Talon",
+  "Taric",
+  "Teemo",
+  "Thresh",
+  "Tristana",
+  "Trundle",
+  "Tryndamere",
+  "Twisted Fate",
+  "Twitch",
+  "Udyr",
+  "Urgot",
+  "Varus",
+  "Vayne",
+  "Veigar",
+  "Vel'Koz",
+  "Vex",
+  "Vi",
+  "Viego",
+  "Viktor",
+  "Vladimir",
+  "Volibear",
+  "Warwick",
+  "Wukong",
+  "Xayah",
+  "Xerath",
+  "Xin Zhao",
+  "Yasuo",
+  "Yone",
+  "Yorick",
+  "Yunara",
+  "Yuumi",
+  "Zac",
+  "Zed",
+  "Zeri",
+  "Ziggs",
+  "Zilean",
+  "Zoe",
+  "Zyra",
 ];
 
 const formatChampionName = (name: string) => {
@@ -21,7 +181,7 @@ const formatChampionName = (name: string) => {
   if (name === "LeBlanc") return "Leblanc";
   if (name === "Renata Glasc") return "Renata";
 
-  let formatted = name.replace(/[^a-zA-Z0-9]/g, '');
+  let formatted = name.replace(/[^a-zA-Z0-9]/g, "");
 
   // Handle inconsistent casing from the file names
   if (formatted === "BelVeth") return "Belveth";
@@ -30,304 +190,461 @@ const formatChampionName = (name: string) => {
   if (formatted === "VelKoz") return "Velkoz";
   if (formatted === "DrMundo") return "DrMundo";
 
-
   return formatted;
 };
 ---
 
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>League Champion Tracker</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      background-color: #121212;
-      color: #fff;
-      margin: 0 auto;
-      max-width: 80rem; /* Equivalent to Tailwind's max-w-7xl */
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      padding: 1rem; /* Keep overall padding for the body */
-    }
-    .champion-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-      gap: 1rem;
-    }
-    .champion-card {
-      cursor: pointer;
-      border: 2px solid #333;
-      border-radius: 5px;
-      overflow: hidden;
-      text-align: center;
-      transition: transform 0.2s;
-    }
-    .champion-card:hover {
-      transform: scale(1.05);
-    }
-    .champion-card.active {
-      background-color: #28a745;
-      border-color: #28a745;
-    }
-    .champion-card img {
-      width: 100%;
-      height: auto;
-    }
-    .champion-card p {
-      margin: 0.5rem 0;
-    }
-    h1 {
-      text-align: center;
-    }
-    .url-container {
-      display: flex;
-      justify-content: center;
-    }
-    #share-url {
-      width: 100%;
-      max-width: 800px; /* Adjust as needed */
-      padding: 0.5rem;
-      background-color: #333;
-      color: #fff;
-      border: 1px solid #555;
-      border-radius: 5px;
-      box-sizing: border-box;
-      margin-right: 10px; /* Add some space between URL and button */
-    }
-    #clear-all-button {
-      padding: 0.5rem 1rem;
-      background-color: transparent;
-      color: #dc3545;
-      border: 1px solid #dc3545;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.2s, color 0.2s, border-color 0.2s;
-      margin-left: 8px; /* Add 8px gap */
-    }
-    #clear-all-button:hover {
-      background-color: #dc3545;
-      color: #fff;
-      border-color: #dc3545;
-    }
-    .search-controls {
-      display: flex;
-      align-items: center; /* Align items vertically */
-    }
-    #search-bar {
-      border-radius: 5px;
-    }
-    .controls-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap; /* Allow items to wrap on smaller screens */
-      gap: 1rem; /* Add some space between items when they wrap */
-    }
-    #champion-count {
-      font-size: 1.5em;
-      font-weight: bold;
-      padding-left: 4px;
-    }
-    #search-bar {
-      padding: 0.5rem;
-      background-color: #333;
-      color: #fff;
-      border: 1px solid #555;
-      width: 200px;
-    }
-    #custom-confirm-dialog {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-    .dialog-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
-    }
-    .dialog-content {
-      background-color: #222;
-      padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      z-index: 1001;
-      text-align: center;
-    }
-    .dialog-content p {
-      margin-bottom: 1.5rem;
-      font-size: 1.1em;
-    }
-    .dialog-buttons button {
-      padding: 0.75rem 1.5rem;
-      margin: 0 0.5rem;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 1em;
-      transition: background-color 0.2s;
-    }
-    #confirm-yes {
-      background-color: #dc3545;
-      color: #fff;
-    }
-    #confirm-yes:hover {
-      background-color: #c82333;
-    }
-    #confirm-no {
-      background-color: #6c757d;
-      color: #fff;
-    }
-    #confirm-no:hover {
-      background-color: #5a6268;
-    }
-    .hidden {
-      display: none !important;
-    }
-    .main-content-area {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-  </style>
-</head>
-<body>
-  <h1>League Champion Tracker</h1>
-  <div class="url-container">
-    <input type="text" id="share-url" readonly>
-  </div>
-  <div class="main-content-area">
-    <div class="controls-container">
-      <div id="champion-count" >0/0 Champions Selected</div>
-      <div class="search-controls">
-        <input type="text" id="search-bar" placeholder="Search champions...">
-        <button id="clear-all-button">Clear All</button>
-      </div>
-    </div>
-    <div class="champion-grid">
-      {championNames.map(name => (
-        <div class="champion-card" data-champion={formatChampionName(name)}>
-          <img src={`/champions/${formatChampionName(name)}.png`} alt={name}>
-          <p>{name}</p>
-        </div>
-      ))}
-    </div>
-  </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>League Champion Tracker</title>
+    <style>
+      body {
+        min-width: 360px;
 
-  <div id="custom-confirm-dialog" class="hidden">
-    <div class="dialog-overlay"></div>
-    <div class="dialog-content">
-      <p>Are you sure you want to clear all selected champions?</p>
-      <div class="dialog-buttons">
-        <button id="confirm-yes">Yes</button>
-        <button id="confirm-no">No</button>
-      </div>
-    </div>
-  </div>
+        font-family: sans-serif;
+        background-color: #121212;
+        color: #fff;
+        margin: 0 auto;
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const championCards = document.querySelectorAll('.champion-card');
-      const shareUrlInput = document.getElementById('share-url') as HTMLInputElement;
-      const championCountDisplay = document.getElementById('champion-count') as HTMLElement;
-      const searchBar = document.getElementById('search-bar') as HTMLInputElement;
-      const clearAllButton = document.getElementById('clear-all-button') as HTMLButtonElement;
-      const customConfirmDialog = document.getElementById('custom-confirm-dialog') as HTMLElement;
-      const confirmYesButton = document.getElementById('confirm-yes') as HTMLButtonElement;
-      const confirmNoButton = document.getElementById('confirm-no') as HTMLButtonElement;
+        max-width: 80rem; /* Equivalent to Tailwind's max-w-7xl */
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        padding: 1rem; /* Keep overall padding for the body */
+      }
+      .champion-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 1rem;
+      }
+      .champion-card {
+        cursor: pointer;
+        border: 2px solid #333;
+        border-radius: 5px;
+        overflow: hidden;
+        text-align: center;
+        transition: transform 0.2s;
+      }
+      .champion-card:hover {
+        transform: scale(1.05);
+      }
+      .champion-card.active {
+        background-color: #28a745;
+        border-color: #28a745;
+      }
+      .champion-card img {
+        width: 100%;
+        height: auto;
+      }
+      .champion-card p {
+        margin: 0.5rem 0;
+      }
+      h1 {
+        text-align: center;
+      }
+      .url-container {
+        display: flex;
+        justify-content: center;
+        position: relative;
+      }
+      #share-url {
+        width: 100%;
+        max-width: 800px; /* Adjust as needed */
+        padding: 0.5rem;
+        background-color: #333;
+        color: #fff;
+        border: 1px solid #555;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+      .share-url-button {
+        position: relative; /* new */
+        display: flex;
+        align-items: center;
+        justify-content: flex-start; /* changed from space-between */
+        max-width: 800px;
+        width: 100%;
+        background-color: #333;
+        color: #fff;
+        border: 1px solid #555;
+        border-radius: 5px;
+        padding: 0.5rem 2.5rem 0.5rem 1rem; /* right padding for icon */
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 1rem;
+        text-align: left;
+        box-sizing: border-box;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
 
-      const updateUrl = () => {
-        let bitmask = 0n; // Use BigInt for a large number of bits
-        let activeCount = 0;
-        championCards.forEach((card, index) => {
-          if (card.classList.contains('active')) {
-            // Set the bit corresponding to the champion's index
-            bitmask |= (1n << BigInt(index));
-            activeCount++;
-          }
-        });
+      .copy-icon {
+        position: absolute; /* new */
+        right: -1px; /* adjust as needed */
+        width: 16px;
+        height: 16px;
+        padding: 8px;
+        padding-right: 16px;
+        flex-shrink: 0;
+        pointer-events: none; /* so clicks don't block the button */
+        background-color: #333;
+      }
 
-        const totalChampions = championCards.length;
-        championCountDisplay.textContent = `${activeCount} / ${totalChampions} Champions Selected`;
+      .tooltip {
+        position: absolute;
+        top: 100%; /* place below the button */
+        left: 50%;
+        transform: translateX(-50%);
+        margin-top: 0.5rem; /* space below the button */
+        background-color: #28a745;
+        color: white;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease;
+        white-space: nowrap;
+        z-index: 10;
+      }
 
-        const url = new URL(window.location.href);
-        // Store the state as a compact hexadecimal string
-        url.searchParams.set('state', bitmask.toString(16));
-        url.searchParams.delete('champions'); // Remove old parameter
-        shareUrlInput.value = url.toString();
-        window.history.replaceState({}, '', url.toString());
-      };
+      .tooltip.show {
+        opacity: 1;
+      }
 
-      const loadFromUrl = () => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const stateHex = urlParams.get('state');
-        if (stateHex) {
-          try {
-            const bitmask = BigInt('0x' + stateHex);
-            championCards.forEach((card, index) => {
-              // Check if the bit for this champion is set
-              if ((bitmask & (1n << BigInt(index))) !== 0n) {
-                card.classList.add('active');
-              }
-            });
-          } catch (e) {
-            console.error("Invalid state in URL", e);
-          }
+      .share-url-button:hover {
+        border-color: #888;
+      }
+
+      .share-url-button:active {
+        background-color: #444;
+      }
+
+      #clear-all-button {
+        padding: 0.5rem 1rem;
+        background-color: transparent;
+        color: #dc3545;
+        border: 1px solid #dc3545;
+        border-radius: 5px;
+        cursor: pointer;
+        transition:
+          background-color 0.2s,
+          color 0.2s,
+          border-color 0.2s;
+        margin-left: 8px; /* Add 8px gap */
+      }
+      #clear-all-button:hover {
+        background-color: #dc3545;
+        color: #fff;
+        border-color: #dc3545;
+      }
+      .search-controls {
+        display: flex;
+        align-items: center; /* Align items vertically */
+      }
+      #search-bar {
+        border-radius: 5px;
+      }
+      .controls-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+        gap: 1rem; /* Add some space between items when they wrap */
+      }
+      #champion-count {
+        font-size: 1.5em;
+        font-weight: bold;
+        padding-left: 4px;
+      }
+      #search-bar {
+        padding: 0.5rem;
+        background-color: #333;
+        color: #fff;
+        border: 1px solid #555;
+        width: 200px;
+      }
+      #custom-confirm-dialog {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+      .dialog-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+      }
+      .dialog-content {
+        background-color: #222;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 1001;
+        text-align: center;
+      }
+      .dialog-content p {
+        margin-bottom: 1.5rem;
+        font-size: 1.1em;
+      }
+      .dialog-buttons button {
+        padding: 0.75rem 1.5rem;
+        margin: 0 0.5rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1em;
+        transition: background-color 0.2s;
+      }
+      #confirm-yes {
+        background-color: #dc3545;
+        color: #fff;
+      }
+      #confirm-yes:hover {
+        background-color: #c82333;
+      }
+      #confirm-no {
+        background-color: #6c757d;
+        color: #fff;
+      }
+      #confirm-no:hover {
+        background-color: #5a6268;
+      }
+      .hidden {
+        display: none !important;
+      }
+      .main-content-area {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      @media (max-width: 768px) {
+        .controls-container {
+          flex-direction: column;
+          align-items: flex-start;
         }
-        updateUrl(); // Call to generate the initial URL
-      };
+        #champion-count {
+          text-align: left;
+          width: 100%;
+          margin-bottom: 0.5rem;
+        }
+        .search-controls {
+          width: 100%;
+          display: flex;
+        }
+        #search-bar {
+          flex-grow: 1;
+          width: auto;
+        }
+        #clear-all-button {
+          margin-left: 8px;
+          flex-shrink: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>League Champion Tracker</h1>
 
-      championCards.forEach(card => {
-        card.addEventListener('click', () => {
-          card.classList.toggle('active');
-          updateUrl();
+    <div class="url-container" style="position: relative;">
+      <button id="share-url-button" class="share-url-button">
+        <span id="share-url-text">https://example.com</span>
+        <img src="copy.svg" alt="Copy" class="copy-icon" />
+      </button>
+      <div id="tooltip" class="tooltip">Copied!</div>
+    </div>
+
+    <div class="main-content-area">
+      <div class="controls-container">
+        <div id="champion-count">0/0 Champions Selected</div>
+        <div class="search-controls">
+          <input
+            type="text"
+            id="search-bar"
+            placeholder="Search champions..."
+          />
+          <button id="clear-all-button">Clear All</button>
+        </div>
+      </div>
+      <div class="champion-grid">
+        {
+          championNames.map((name) => (
+            <div class="champion-card" data-champion={formatChampionName(name)}>
+              <img
+                src={`/champions/${formatChampionName(name)}.png`}
+                alt={name}
+              />
+              <p>{name}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div id="custom-confirm-dialog" class="hidden">
+      <div class="dialog-overlay"></div>
+      <div class="dialog-content">
+        <p>Are you sure you want to clear all selected champions?</p>
+        <div class="dialog-buttons">
+          <button id="confirm-yes">Yes</button>
+          <button id="confirm-no">No</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const championCards = document.querySelectorAll(".champion-card");
+        const shareUrlButton = document.getElementById(
+          "share-url-button"
+        ) as HTMLButtonElement;
+        const shareUrlText = document.getElementById(
+          "share-url-text"
+        ) as HTMLSpanElement;
+
+        const championCountDisplay = document.getElementById(
+          "champion-count"
+        ) as HTMLElement;
+        const searchBar = document.getElementById(
+          "search-bar"
+        ) as HTMLInputElement;
+        const clearAllButton = document.getElementById(
+          "clear-all-button"
+        ) as HTMLButtonElement;
+        const customConfirmDialog = document.getElementById(
+          "custom-confirm-dialog"
+        ) as HTMLElement;
+        const confirmYesButton = document.getElementById(
+          "confirm-yes"
+        ) as HTMLButtonElement;
+        const confirmNoButton = document.getElementById(
+          "confirm-no"
+        ) as HTMLButtonElement;
+
+        shareUrlText.textContent = window.location.href;
+
+        shareUrlButton.addEventListener("click", (e) => {
+          e.stopPropagation(); // prevent click bubbling to parent or grid
+
+          const url = shareUrlText.textContent!;
+          navigator.clipboard
+            .writeText(url)
+            .then(() => {
+              shareUrlButton.style.borderColor = "#555555";
+
+              const tooltip = document.getElementById("tooltip");
+              if (tooltip) {
+                tooltip.classList.add("show");
+
+                setTimeout(() => {
+                  tooltip.classList.remove("show");
+                }, 1500);
+              }
+            })
+            .catch((err) => {
+              console.error("Failed to copy URL:", err);
+            });
         });
-      });
 
-      searchBar.addEventListener('input', () => {
-        const searchTerm = searchBar.value.toLowerCase();
-        championCards.forEach(card => {
-          const htmlCard = card as HTMLElement;
-          const championFormattedName = htmlCard.dataset.champion?.toLowerCase();
-          const championDisplayName = htmlCard.querySelector('p')?.textContent?.toLowerCase();
+        const updateUrl = () => {
+          let bitmask = 0n; // Use BigInt for a large number of bits
+          let activeCount = 0;
+          championCards.forEach((card, index) => {
+            if (card.classList.contains("active")) {
+              // Set the bit corresponding to the champion's index
+              bitmask |= 1n << BigInt(index);
+              activeCount++;
+            }
+          });
 
-          if (championFormattedName?.includes(searchTerm) || championDisplayName?.includes(searchTerm)) {
-            htmlCard.style.display = '';
-          } else {
-            htmlCard.style.display = 'none';
+          const totalChampions = championCards.length;
+          championCountDisplay.textContent = `${activeCount} / ${totalChampions} Champions Selected`;
+
+          const url = new URL(window.location.href);
+          // Store the state as a compact hexadecimal string
+          url.searchParams.set("state", bitmask.toString(16));
+          url.searchParams.delete("champions"); // Remove old parameter
+          shareUrlText.textContent = url.toString();
+
+          window.history.replaceState({}, "", url.toString());
+        };
+
+        const loadFromUrl = () => {
+          const urlParams = new URLSearchParams(window.location.search);
+          const stateHex = urlParams.get("state");
+          if (stateHex) {
+            try {
+              const bitmask = BigInt("0x" + stateHex);
+              championCards.forEach((card, index) => {
+                // Check if the bit for this champion is set
+                if ((bitmask & (1n << BigInt(index))) !== 0n) {
+                  card.classList.add("active");
+                }
+              });
+            } catch (e) {
+              console.error("Invalid state in URL", e);
+            }
           }
+          updateUrl(); // Call to generate the initial URL
+        };
+
+        championCards.forEach((card) => {
+          card.addEventListener("click", () => {
+            card.classList.toggle("active");
+            updateUrl();
+          });
         });
-      });
 
-      clearAllButton.addEventListener('click', () => {
-        customConfirmDialog.classList.remove('hidden');
-      });
+        searchBar.addEventListener("input", () => {
+          const searchTerm = searchBar.value.toLowerCase();
+          championCards.forEach((card) => {
+            const htmlCard = card as HTMLElement;
+            const championFormattedName =
+              htmlCard.dataset.champion?.toLowerCase();
+            const championDisplayName = htmlCard
+              .querySelector("p")
+              ?.textContent?.toLowerCase();
 
-      confirmYesButton.addEventListener('click', () => {
-        championCards.forEach(card => {
-          card.classList.remove('active');
+            if (
+              championFormattedName?.includes(searchTerm) ||
+              championDisplayName?.includes(searchTerm)
+            ) {
+              htmlCard.style.display = "";
+            } else {
+              htmlCard.style.display = "none";
+            }
+          });
         });
-        updateUrl();
-        customConfirmDialog.classList.add('hidden');
-      });
 
-      confirmNoButton.addEventListener('click', () => {
-        customConfirmDialog.classList.add('hidden');
-      });
+        clearAllButton.addEventListener("click", () => {
+          customConfirmDialog.classList.remove("hidden");
+        });
 
-      loadFromUrl();
-    });
-  </script>
-</body>
+        confirmYesButton.addEventListener("click", () => {
+          championCards.forEach((card) => {
+            card.classList.remove("active");
+          });
+          updateUrl();
+          customConfirmDialog.classList.add("hidden");
+        });
+
+        confirmNoButton.addEventListener("click", () => {
+          customConfirmDialog.classList.add("hidden");
+        });
+
+        loadFromUrl();
+      });
+    </script>
+  </body>
 </html>
