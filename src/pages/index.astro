@@ -518,7 +518,7 @@ const formatChampionName = (name: string) => {
         <span id="share-url-text">https://example.com</span>
         <img src="copy.svg" alt="Copy" class="copy-icon" />
       </button>
-      <button id="clear-all-button">Clear All</button>
+      <button id="clear-all-button">Reset</button>
       <div id="tooltip" class="tooltip">Copied!</div>
     </div>
 
@@ -702,6 +702,20 @@ const formatChampionName = (name: string) => {
         applyFilters();
       });
 
+      clearAllButton.addEventListener("click", () => {
+        customConfirmDialog.classList.remove("hidden");
+      });
+
+      confirmYesButton.addEventListener("click", () => {
+        championCards.forEach((card) => card.classList.remove("active"));
+        updateUrl();
+        customConfirmDialog.classList.add("hidden");
+      });
+
+      confirmNoButton.addEventListener("click", () => {
+        customConfirmDialog.classList.add("hidden");
+      });
+
       window.addEventListener("scroll", () => {
         scrollButton.classList.toggle("hidden", window.scrollY < 200);
       });
@@ -796,15 +810,19 @@ const formatChampionName = (name: string) => {
     /* ✅ Filter buttons */
     .filter-tabs {
       display: flex;
-      justify-content: center;
-      gap: 1rem;
+      justify-content: center; /* Space them evenly */
+      gap: 0.5rem;
       padding-top: 0;
-
       background-color: #121212;
-      flex-wrap: wrap;
+      flex-wrap: nowrap; /* Prevent wrapping if space allows */
     }
 
     .filter-tab {
+      flex: 1 1 0; /* Allow even distribution */
+      min-width: 100px; /* Optional: prevent being too small */
+      max-width: 240px;
+      text-align: center;
+
       padding: 0.5rem 1rem;
       border: 1px solid #555;
       background-color: #222;
