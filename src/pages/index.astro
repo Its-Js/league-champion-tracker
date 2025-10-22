@@ -792,14 +792,16 @@ const formatChampionName = (name: string) => {
     /* ✅ Clear search (x) */
     .clear-search {
       position: absolute;
-      right: 8px;
-      top: 50%;
+      right: 12px;
+      top: 45%;
       transform: translateY(-50%);
       cursor: pointer;
-      font-size: 1.25rem;
+      font-size: 1rem; /* ↓ reduced from 1.25rem */
+      line-height: 1; /* ensure vertical centering */
       color: #aaa;
       user-select: none;
     }
+
     .clear-search:hover {
       color: #fff;
     }
