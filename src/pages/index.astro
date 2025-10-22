@@ -211,13 +211,13 @@ const formatChampionName = (name: string) => {
         max-width: 80rem; /* Equivalent to Tailwind's max-w-7xl */
         display: flex;
         flex-direction: column;
-        gap: 2rem;
+        gap: 1rem;
         padding: 1rem; /* Keep overall padding for the body */
       }
       .champion-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
         gap: 1rem;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
       }
       .champion-card {
         cursor: pointer;
@@ -372,7 +372,6 @@ const formatChampionName = (name: string) => {
         background-color: #333;
         color: #fff;
         border: 1px solid #555;
-        width: 200px;
       }
       #custom-confirm-dialog {
         position: fixed;
@@ -508,7 +507,7 @@ const formatChampionName = (name: string) => {
     </style>
   </head>
   <body>
-    <h1>League Arena Tracker</h1>
+    <h1 style="padding: 1rem;">League Arena Tracker</h1>
 
     <div class="url-container" style="position: relative; gap: 0.5rem;">
       <button
@@ -523,298 +522,319 @@ const formatChampionName = (name: string) => {
       <div id="tooltip" class="tooltip">Copied!</div>
     </div>
 
-    <div class="main-content-area">
+    <!-- ✅ Sticky Section -->
+    <div class="sticky-controls">
       <div class="controls-container">
         <div id="champion-count">0 / 0 Champions</div>
-
-        <div class="search-controls">
-          <div class="search-bar-wrapper">
-            <input
-              type="text"
-              id="search-bar"
-              placeholder="Search champions..."
-            />
-            <span id="clear-search" class="clear-search hidden">×</span>
-          </div>
+        <div class="search-bar-wrapper">
+          <input
+            type="text"
+            id="search-bar"
+            placeholder="Search champions..."
+          />
+          <span id="clear-search" class="clear-search hidden">×</span>
         </div>
       </div>
 
-      <!-- ✅ Filter Tabs -->
       <div class="filter-tabs">
         <button class="filter-tab active" data-filter="all">All</button>
         <button class="filter-tab" data-filter="selected">Selected</button>
         <button class="filter-tab" data-filter="unselected">Unselected</button>
       </div>
-
-      <div class="champion-grid">
-        {
-          championNames.map((name) => (
-            <div class="champion-card" data-champion={formatChampionName(name)}>
-              <img
-                src={`/champions/${formatChampionName(name)}.png`}
-                alt={name}
-              />
-              <p>{name}</p>
-            </div>
-          ))
-        }
-      </div>
     </div>
 
-    <div id="custom-confirm-dialog" class="hidden">
-      <div class="dialog-overlay"></div>
-      <div class="dialog-content">
-        <p>Are you sure you want to clear all selected champions?</p>
-        <div class="dialog-buttons">
-          <button id="confirm-yes">Yes</button>
-          <button id="confirm-no">No</button>
-        </div>
+    <div class="champion-grid">
+      {
+        championNames.map((name) => (
+          <div class="champion-card" data-champion={formatChampionName(name)}>
+            <img
+              src={`/champions/${formatChampionName(name)}.png`}
+              alt={name}
+            />
+            <p>{name}</p>
+          </div>
+        ))
+      }
+    </div>
+  </body>
+
+  <div id="custom-confirm-dialog" class="hidden">
+    <div class="dialog-overlay"></div>
+    <div class="dialog-content">
+      <p>Are you sure you want to clear all selected champions?</p>
+      <div class="dialog-buttons">
+        <button id="confirm-yes">Yes</button>
+        <button id="confirm-no">No</button>
       </div>
     </div>
+  </div>
 
-    <button
-      id="scroll-to-top"
-      class="scroll-to-top hidden"
-      aria-label="Scroll to top"
-    >
-      <img src="chevron-up.svg" alt="Scroll to top" />
-    </button>
+  <button
+    id="scroll-to-top"
+    class="scroll-to-top hidden"
+    aria-label="Scroll to top"
+  >
+    <img src="chevron-up.svg" alt="Scroll to top" />
+  </button>
 
-    <script type="module">
-      document.addEventListener("DOMContentLoaded", () => {
-        const championCards = document.querySelectorAll(".champion-card");
-        const shareUrlButton = document.getElementById("share-url-button");
-        const shareUrlText = document.getElementById("share-url-text");
-        const championCountDisplay = document.getElementById("champion-count");
-        const searchBar = document.getElementById("search-bar");
-        const clearSearch = document.getElementById("clear-search");
-        const clearAllButton = document.getElementById("clear-all-button");
-        const customConfirmDialog = document.getElementById(
-          "custom-confirm-dialog"
-        );
-        const confirmYesButton = document.getElementById("confirm-yes");
-        const confirmNoButton = document.getElementById("confirm-no");
-        const scrollButton = document.getElementById("scroll-to-top");
-        const filterTabs = document.querySelectorAll(".filter-tab");
+  <script type="module">
+    document.addEventListener("DOMContentLoaded", () => {
+      const championCards = document.querySelectorAll(".champion-card");
+      const shareUrlButton = document.getElementById("share-url-button");
+      const shareUrlText = document.getElementById("share-url-text");
+      const championCountDisplay = document.getElementById("champion-count");
+      const searchBar = document.getElementById("search-bar");
+      const clearSearch = document.getElementById("clear-search");
+      const clearAllButton = document.getElementById("clear-all-button");
+      const customConfirmDialog = document.getElementById(
+        "custom-confirm-dialog"
+      );
+      const confirmYesButton = document.getElementById("confirm-yes");
+      const confirmNoButton = document.getElementById("confirm-no");
+      const scrollButton = document.getElementById("scroll-to-top");
+      const filterTabs = document.querySelectorAll(".filter-tab");
 
-        // Basic null check
-        if (
-          !shareUrlButton ||
-          !shareUrlText ||
-          !championCountDisplay ||
-          !searchBar ||
-          !clearSearch ||
-          !clearAllButton ||
-          !customConfirmDialog ||
-          !confirmYesButton ||
-          !confirmNoButton ||
-          !scrollButton
-        ) {
-          console.error("One or more required elements are missing.");
-          return;
-        }
+      // Basic null check
+      if (
+        !shareUrlButton ||
+        !shareUrlText ||
+        !championCountDisplay ||
+        !searchBar ||
+        !clearSearch ||
+        !clearAllButton ||
+        !customConfirmDialog ||
+        !confirmYesButton ||
+        !confirmNoButton ||
+        !scrollButton
+      ) {
+        console.error("One or more required elements are missing.");
+        return;
+      }
 
-        const updateUrl = () => {
-          let bitmask = 0n;
-          let activeCount = 0;
+      const updateUrl = () => {
+        let bitmask = 0n;
+        let activeCount = 0;
 
-          championCards.forEach((card, index) => {
-            if (card.classList.contains("active")) {
-              bitmask |= 1n << BigInt(index);
-              activeCount++;
-            }
-          });
-
-          championCountDisplay.textContent = `${activeCount} / ${championCards.length} Champions`;
-
-          const url = new URL(window.location.href);
-          url.searchParams.set("state", bitmask.toString(16));
-          url.searchParams.delete("champions");
-          shareUrlText.textContent = url.toString();
-          window.history.replaceState({}, "", url.toString());
-        };
-
-        const loadFromUrl = () => {
-          const stateHex = new URLSearchParams(window.location.search).get(
-            "state"
-          );
-          if (stateHex) {
-            try {
-              const bitmask = BigInt("0x" + stateHex);
-              championCards.forEach((card, index) => {
-                if ((bitmask & (1n << BigInt(index))) !== 0n) {
-                  card.classList.add("active");
-                }
-              });
-            } catch (e) {
-              console.error("Invalid state:", e);
-            }
+        championCards.forEach((card, index) => {
+          if (card.classList.contains("active")) {
+            bitmask |= 1n << BigInt(index);
+            activeCount++;
           }
+        });
+
+        championCountDisplay.textContent = `${activeCount} / ${championCards.length} Champions`;
+
+        const url = new URL(window.location.href);
+        url.searchParams.set("state", bitmask.toString(16));
+        url.searchParams.delete("champions");
+        shareUrlText.textContent = url.toString();
+        window.history.replaceState({}, "", url.toString());
+      };
+
+      const loadFromUrl = () => {
+        const stateHex = new URLSearchParams(window.location.search).get(
+          "state"
+        );
+        if (stateHex) {
+          try {
+            const bitmask = BigInt("0x" + stateHex);
+            championCards.forEach((card, index) => {
+              if ((bitmask & (1n << BigInt(index))) !== 0n) {
+                card.classList.add("active");
+              }
+            });
+          } catch (e) {
+            console.error("Invalid state:", e);
+          }
+        }
+        updateUrl();
+      };
+
+      championCards.forEach((card) => {
+        card.addEventListener("click", () => {
+          card.classList.toggle("active");
           updateUrl();
-        };
+        });
+      });
+
+      let activeFilter = "all"; // default
+
+      const applyFilters = () => {
+        const term = searchBar.value.toLowerCase();
 
         championCards.forEach((card) => {
-          card.addEventListener("click", () => {
-            card.classList.toggle("active");
-            updateUrl();
-          });
+          const name = card.dataset.champion?.toLowerCase() || "";
+          const label =
+            card.querySelector("p")?.textContent?.toLowerCase() || "";
+          const matchesSearch = name.includes(term) || label.includes(term);
+          const isSelected = card.classList.contains("active");
+
+          let matchesFilter = false;
+          if (activeFilter === "all") {
+            matchesFilter = true;
+          } else if (activeFilter === "selected") {
+            matchesFilter = isSelected;
+          } else if (activeFilter === "unselected") {
+            matchesFilter = !isSelected;
+          }
+
+          card.style.display = matchesSearch && matchesFilter ? "" : "none";
         });
 
-        let activeFilter = "all"; // default
+        clearSearch.classList.toggle("hidden", term === "");
+      };
 
-        const applyFilters = () => {
-          const term = searchBar.value.toLowerCase();
+      // Handle filter tab clicks
+      filterTabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          filterTabs.forEach((t) => t.classList.remove("active"));
+          tab.classList.add("active");
 
-          championCards.forEach((card) => {
-            const name = card.dataset.champion?.toLowerCase() || "";
-            const label =
-              card.querySelector("p")?.textContent?.toLowerCase() || "";
-            const matchesSearch = name.includes(term) || label.includes(term);
-            const isSelected = card.classList.contains("active");
-
-            let matchesFilter = false;
-            if (activeFilter === "all") {
-              matchesFilter = true;
-            } else if (activeFilter === "selected") {
-              matchesFilter = isSelected;
-            } else if (activeFilter === "unselected") {
-              matchesFilter = !isSelected;
-            }
-
-            card.style.display = matchesSearch && matchesFilter ? "" : "none";
-          });
-
-          clearSearch.classList.toggle("hidden", term === "");
-        };
-
-        // Handle filter tab clicks
-        filterTabs.forEach((tab) => {
-          tab.addEventListener("click", () => {
-            filterTabs.forEach((t) => t.classList.remove("active"));
-            tab.classList.add("active");
-
-            activeFilter = tab.dataset.filter || "all";
-            applyFilters();
-          });
-        });
-
-        // Handle search input
-        searchBar.addEventListener("input", applyFilters);
-        clearSearch.addEventListener("click", () => {
-          searchBar.value = "";
+          activeFilter = tab.dataset.filter || "all";
           applyFilters();
         });
-
-        window.addEventListener("scroll", () => {
-          scrollButton.classList.toggle("hidden", window.scrollY < 200);
-        });
-
-        scrollButton.addEventListener("click", () => {
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        });
-
-        shareUrlButton.addEventListener("click", (e) => {
-          e.stopPropagation();
-          const url = shareUrlText.textContent;
-          if (!url) return;
-
-          navigator.clipboard
-            .writeText(url)
-            .then(() => {
-              const tooltip = document.getElementById("tooltip");
-              if (tooltip) {
-                tooltip.classList.add("show");
-                setTimeout(() => tooltip.classList.remove("show"), 1500);
-              }
-            })
-            .catch((err) => {
-              console.error("Failed to copy URL:", err);
-            });
-        });
-
-        loadFromUrl();
       });
-    </script>
 
-    <style>
-      .url-container {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem; /* Add space between share and clear buttons */
-        flex-wrap: wrap; /* Allow wrapping on small screens */
-      }
+      // Handle search input
+      searchBar.addEventListener("input", applyFilters);
+      clearSearch.addEventListener("click", () => {
+        searchBar.value = "";
+        applyFilters();
+      });
 
-      #clear-all-button {
-        padding: 0.5rem 1rem;
-        font-size: 1rem;
-        background-color: transparent;
-        color: #dc3545;
-        border: 1px solid #dc3545;
-        border-radius: 5px;
-        cursor: pointer;
-        transition:
-          background-color 0.2s,
-          color 0.2s,
-          border-color 0.2s;
-        box-sizing: border-box;
-        height: 100%;
-        white-space: nowrap;
-      }
+      window.addEventListener("scroll", () => {
+        scrollButton.classList.toggle("hidden", window.scrollY < 200);
+      });
 
-      #clear-all-button:hover {
-        background-color: #dc3545;
-        color: #fff;
-        border-color: #dc3545;
-      }
+      scrollButton.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
 
+      shareUrlButton.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const url = shareUrlText.textContent;
+        if (!url) return;
+
+        navigator.clipboard
+          .writeText(url)
+          .then(() => {
+            const tooltip = document.getElementById("tooltip");
+            if (tooltip) {
+              tooltip.classList.add("show");
+              setTimeout(() => tooltip.classList.remove("show"), 1500);
+            }
+          })
+          .catch((err) => {
+            console.error("Failed to copy URL:", err);
+          });
+      });
+
+      loadFromUrl();
+    });
+  </script>
+
+  <style>
+    /* ✅ Sticky wrapper for search + filter */
+    .sticky-controls {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background-color: #121212;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    /* ✅ Controls container (counter + search) */
+    .controls-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 0 1rem;
+    }
+
+    /* ✅ Search wrapper */
+    .search-bar-wrapper {
+      position: relative;
+      flex-grow: 1;
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+    }
+
+    #search-bar {
+      width: 100%;
+      padding: 0.5rem 2rem 0.5rem 0.5rem;
+      background-color: #333;
+      color: #fff;
+      border: 1px solid #555;
+      border-radius: 5px;
+      font-size: 16px;
+      box-sizing: border-box;
+      max-width:;
+    }
+
+    /* ✅ Clear search (x) */
+    .clear-search {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 1.25rem;
+      color: #aaa;
+      user-select: none;
+    }
+    .clear-search:hover {
+      color: #fff;
+    }
+    .clear-search.hidden {
+      display: none;
+    }
+
+    /* ✅ Filter buttons */
+    .filter-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      padding-top: 0;
+
+      background-color: #121212;
+      flex-wrap: wrap;
+    }
+
+    .filter-tab {
+      padding: 0.5rem 1rem;
+      border: 1px solid #555;
+      background-color: #222;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .filter-tab:hover {
+      background-color: #333;
+    }
+
+    .filter-tab.active {
+      background-color: #28a745;
+      border-color: #28a745;
+    }
+
+    @media (min-width: 480px) {
       .search-bar-wrapper {
-        position: relative;
-        display: inline-block;
+        max-width: 300px;
       }
-
-      #search-bar {
-        padding-right: 2rem;
+    }
+    @media (min-width: 768px) {
+      .search-bar-wrapper {
+        max-width: 400px;
       }
-
-      .clear-search {
-        position: absolute;
-        right: 8px;
-        top: 50%;
-        transform: translateY(-50%);
-        cursor: pointer;
-        font-size: 1.25rem;
-        color: #aaa;
-        user-select: none;
-      }
-
-      .clear-search:hover {
-        color: #fff;
-      }
-
-      .clear-search.hidden {
-        display: none;
-      }
-
       .filter-tabs {
-        display: flex;
-        gap: 1rem;
-        justify-content: center;
-        margin: 1rem 0;
+        padding-top: 1rem;
       }
-
-      .filter-tab {
-        padding: 0.5rem 1rem;
-        background-color: #222;
-        color: white;
-        border: 1px solid #444;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-
-      .filter-tab.active {
-        background-color: #28a745;
-        border-color: #28a745;
-      }
-    </style>
-  </body>
+    }
+  </style>
 </html>
