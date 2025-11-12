@@ -537,9 +537,11 @@ const formatChampionName = (name: string) => {
       </div>
 
       <div class="filter-tabs">
-        <button class="filter-tab active" data-filter="all">All</button>
+        <button class="filter-tab" data-filter="all">All</button>
         <button class="filter-tab" data-filter="selected">Selected</button>
-        <button class="filter-tab" data-filter="unselected">Unselected</button>
+        <button class="filter-tab active" data-filter="unselected"
+          >Unselected</button
+        >
       </div>
     </div>
 
@@ -657,7 +659,7 @@ const formatChampionName = (name: string) => {
         });
       });
 
-      let activeFilter = "all"; // default
+      let activeFilter = "unselected"; // default
 
       const applyFilters = () => {
         const term = searchBar.value.toLowerCase();
